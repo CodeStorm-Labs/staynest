@@ -1,0 +1,65 @@
+# Blognate Project Setup Instructions
+# Created: 29.03.2025
+# Maintainer: Mert Ayhan
+
+### CORE OBJECTIVES
+1. Multi-tenant SaaS blog platform
+2. Free tier + Pro tier
+3. AI writing assistant
+4. Automatic geo-based translation
+5. Subscription paywalls
+
+### TECH STACK
+- Next.js 15.2.4 (App Router)
+- Tailwind CSS 4.0.17 + shadcn/ui 2.4.0-canary.17
+- Zustand 5.0.3 (State Management)
+- Zod 3.24.2 (Validation)
+- better-auth 1.2.5 (JWT strategy, Google OAuth, and Github OAuth)
+- PostgreSQL + Drizzle ORM 0.41.0
+- Stripe (Payments)
+- UI Requirements: 
+  - Mobile-first responsive design
+  - Dark/light mode support
+  - Loading states for all async actions
+
+### CODE QUALITY STANDARDS
+1. Use modern TypeScript
+2. Functional components only
+3. Atomic design structure:
+   - components/
+     └── ui/ (shadcn components)
+     └── core/ (custom business logic components)
+4. Strict ESLint config (Next.js default + Airbnb base)
+5. Meaningful component/variable names
+6. JSDoc for complex utilities
+7. Use Server Actions
+8. Use Type instead of Interface
+
+### AUTHENTICATION FLOW
+1. better-auth configuration:
+   - Cookie-based sessions
+   - Email/password + Google OAuth + Github OAuth
+   - Role-based access (free/pro users)
+2. Protected routes:
+   - /dashboard/**
+   - /settings
+3. Password reset flow with email verification
+
+### DATABASE ARCHITECTURE
+1. PostgreSQL schema conventions:
+   - snake_case naming
+   - timestamps (created_at, updated_at)
+   - Soft deletes (is_deleted flag)
+   - use singular for table names
+   
+3. Migration strategy:
+   - drizzle-kit for schema migrations
+   - Commit migration files to version control
+
+###UI SPECIFICS
+1. Animation:
+   - Framer Motion for route transitions
+   - Headless UI for interactive elements
+
+###
+- Use English as Site Language
