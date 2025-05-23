@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4dabf7" />
+      <stop offset="100%" stop-color="#1864ab" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sun -->
+  <circle cx="256" cy="256" r="220" fill="url(#bg-gradient)" opacity="0.9" />
+  
+  <!-- Sun rays -->
+  <g fill="#FFD700">
+    <circle cx="256" cy="160" r="60" />
+    <path d="M256 130 L256 80" stroke="#FFD700" stroke-width="12" stroke-linecap="round" />
+    <path d="M206 160 L166 130" stroke="#FFD700" stroke-width="12" stroke-linecap="round" />
+    <path d="M306 160 L346 130" stroke="#FFD700" stroke-width="12" stroke-linecap="round" />
+    <path d="M185 210 L135 210" stroke="#FFD700" stroke-width="12" stroke-linecap="round" />
+    <path d="M327 210 L377 210" stroke="#FFD700" stroke-width="12" stroke-linecap="round" />
+  </g>
+  
+  <!-- Palm Tree -->
+  <path d="M256 250 L256 380" stroke="#5D4037" stroke-width="20" stroke-linecap="round" />
+  <path d="M256 280 L220 220" stroke="#43A047" stroke-width="12" stroke-linecap="round" />
+  <path d="M256 280 L292 220" stroke="#43A047" stroke-width="12" stroke-linecap="round" />
+  <path d="M256 300 L200 250" stroke="#43A047" stroke-width="12" stroke-linecap="round" />
+  <path d="M256 300 L312 250" stroke="#43A047" stroke-width="12" stroke-linecap="round" />
+  
+  <!-- Moon -->
+  <path d="M350 340 A 40 40 0 1 1 330 390" fill="none" stroke="#E1F5FE" stroke-width="12" stroke-linecap="round" />
+  
+  <!-- Waves -->
+  <path d="M170 360 Q 200 330, 230 360 Q 260 390, 290 360 Q 320 330, 350 360" fill="none" stroke="#64B5F6" stroke-width="12" stroke-linecap="round" />
+  <path d="M170 390 Q 200 360, 230 390 Q 260 420, 290 390 Q 320 360, 350 390" fill="none" stroke="#2196F3" stroke-width="12" stroke-linecap="round" />
+</svg> 

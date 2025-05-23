@@ -1,6 +1,7 @@
 import { pgTable, text, timestamp, boolean, pgEnum } from 'drizzle-orm/pg-core';
 
 export const userTier = pgEnum('user_tier', ['free', 'pro']);
+export const userRole = pgEnum('user_role', ['user', 'admin']);
 
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -8,6 +9,7 @@ export const user = pgTable('user', {
   email: text('email').notNull().unique(),
   emailVerified: boolean('email_verified').notNull(),
   tier: userTier('tier').default('free').notNull(),
+  role: userRole('role').default('user').notNull(),
   image: text('image'),
   createdAt: timestamp('created_at').notNull(),
   updatedAt: timestamp('updated_at').notNull(),

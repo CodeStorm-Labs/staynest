@@ -96,7 +96,7 @@ export async function loginWithEmail(
   }
 }
 
-export async function initiateSocialLogin(provider: 'google' | 'github') {
+export async function initiateSocialLogin(provider: 'google') {
   let response;
   try {
     console.log('initiateSocialLogin', provider);
@@ -127,12 +127,13 @@ export async function initiateSocialLogin(provider: 'google' | 'github') {
 
 export async function logout() {
   try {
+    const headersList = await headers();
     const response = await auth.api.signOut({
-      headers: headers(),
+      headers: headersList,
       asResponse: true,
     });
 
-    if (!response.success) {
+    if (!response.ok) {
       return { error: 'An error occurred during logout.' };
     }
 
@@ -146,8 +147,9 @@ export async function logout() {
 
 export async function getSession() {
   try {
+    const headersList = await headers();
     return await auth.api.getSession({
-      headers: headers(),
+      headers: headersList,
     });
   } catch (error) {
     return null;

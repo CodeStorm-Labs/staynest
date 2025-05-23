@@ -1,15 +1,5 @@
-import Features from '@/components/features';
-import FooterSection from '@/components/footer';
-import HeroSection from '@/components/hero-section';
-import Pricing from '@/components/pricing';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <>
-      <HeroSection />
-      <Features />
-      <Pricing />
-      <FooterSection />
-    </>
-  );
-}
+export default function Page() {
+  redirect('/tr');
+} 
