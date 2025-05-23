@@ -49,8 +49,8 @@ export default function AdminListingsPage() {
     fetchListings();
   }, []);
 
-  // Filter and search listings
-  const filteredListings = listings.filter(listing => {
+  // Filter and search listings - add safety check for undefined listings
+  const filteredListings = (listings || []).filter(listing => {
     const matchesSearch = (
       listing.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       listing.address?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -65,11 +65,11 @@ export default function AdminListingsPage() {
     return matchesSearch;
   });
 
-  // Pagination
+  // Pagination - add safety check for undefined filteredListings
   const indexOfLastListing = currentPage * listingsPerPage;
   const indexOfFirstListing = indexOfLastListing - listingsPerPage;
-  const currentListings = filteredListings.slice(indexOfFirstListing, indexOfLastListing);
-  const totalPages = Math.ceil(filteredListings.length / listingsPerPage);
+  const currentListings = (filteredListings || []).slice(indexOfFirstListing, indexOfLastListing);
+  const totalPages = Math.ceil((filteredListings?.length || 0) / listingsPerPage);
 
   const handleListingAction = async (listingId: string, action: 'delete' | 'approve' | 'reject') => {
     if (!confirm(`Bu ilan için ${action} işlemini onaylıyor musunuz?`)) {
@@ -92,9 +92,9 @@ export default function AdminListingsPage() {
 
       // Update the listings state based on the action
       if (action === 'delete') {
-        setListings(listings.filter(listing => listing.id !== listingId));
+        setListings((prevListings) => (prevListings || []).filter(listing => listing.id !== listingId));
       } else {
-        setListings(listings.map(listing => 
+        setListings((prevListings) => (prevListings || []).map(listing => 
           listing.id === listingId 
             ? { ...listing, status: action === 'approve' ? 'ACTIVE' : 'REJECTED' } 
             : listing

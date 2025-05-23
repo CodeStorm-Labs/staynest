@@ -63,7 +63,7 @@ export default function AdminBookingsPage() {
   };
 
   // Filter and search bookings
-  const filteredBookings = bookings.filter(booking => {
+  const filteredBookings = (bookings || []).filter(booking => {
     // Handle cases where these might be undefined
     const listingTitle = booking.listingTitle || '';
     const userName = booking.userName || '';
@@ -85,8 +85,8 @@ export default function AdminBookingsPage() {
   // Pagination
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
-  const currentBookings = filteredBookings.slice(indexOfFirstBooking, indexOfLastBooking);
-  const totalPages = Math.ceil(filteredBookings.length / bookingsPerPage);
+  const currentBookings = (filteredBookings || []).slice(indexOfFirstBooking, indexOfLastBooking);
+  const totalPages = Math.ceil((filteredBookings?.length || 0) / bookingsPerPage);
 
   const handleBookingAction = async (bookingId: string, action: 'confirm' | 'cancel') => {
     if (!confirm(`Bu rezervasyon için ${action === 'confirm' ? 'onaylama' : 'iptal'} işlemini onaylıyor musunuz?`)) {
@@ -108,7 +108,7 @@ export default function AdminBookingsPage() {
       }
 
       // Update the bookings state based on the action
-      setBookings(bookings.map(booking => 
+      setBookings((prevBookings) => (prevBookings || []).map(booking => 
         booking.id === bookingId 
           ? { ...booking, status: action === 'confirm' ? 'CONFIRMED' : 'CANCELLED' } 
           : booking
