@@ -57,6 +57,13 @@ A modern, full-featured vacation rental platform built with Next.js, similar to 
 - Localized content and date formatting
 - Currency localization
 
+### 💳 **Payment Integration**
+- Secure payment processing with Stripe
+- Service fee calculation (12% platform fee)
+- Payment intent creation and confirmation
+- Webhook handling for payment verification
+- Dual booking options (free booking vs. paid booking)
+
 ## 🚀 Tech Stack
 
 - **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
@@ -87,6 +94,11 @@ A modern, full-featured vacation rental platform built with Next.js, similar to 
    NEXT_PUBLIC_API_URL="http://localhost:3000/api"
    BETTER_AUTH_SECRET="your-super-secret-key-here"
    BETTER_AUTH_URL="http://localhost:3000"
+   
+   # Stripe Configuration (for payment processing)
+   STRIPE_SECRET_KEY="sk_test_your_stripe_secret_key_here"
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_your_stripe_publishable_key_here"
+   STRIPE_WEBHOOK_SECRET="whsec_your_webhook_secret_here"
    ```
 
 4. **Start the database**
@@ -146,7 +158,6 @@ The application uses a robust relational database schema:
 
 ## 🚧 Upcoming Features
 
-- [ ] Payment integration (Stripe/PayPal)
 - [ ] Real-time messaging between hosts and guests
 - [ ] Email notification system
 - [ ] Advanced calendar management

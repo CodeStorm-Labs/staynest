@@ -361,14 +361,34 @@ export default function BookingForm({ listingId, price, title }: Props) {
             </div>
           </div>
           
-          <button
-            type="button"
-            onClick={handleBookingSubmit}
-            disabled={isLoading}
-            className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
-          >
-            {isLoading ? 'Rezervasyon Yapılıyor...' : 'Rezervasyon Yap'}
-          </button>
+          <div className="space-y-3">
+            <button
+              type="button"
+              onClick={handleBookingSubmit}
+              disabled={isLoading}
+              className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
+            >
+              {isLoading ? 'Rezervasyon Yapılıyor...' : 'Ücretsiz Rezervasyon Yap'}
+            </button>
+            
+            <div className="text-center text-sm text-muted-foreground">veya</div>
+            
+            <button
+              type="button"
+              onClick={() => {
+                if (!checkIn || !checkOut) return;
+                const params = new URLSearchParams({
+                  checkIn: checkIn.toISOString().split('T')[0],
+                  checkOut: checkOut.toISOString().split('T')[0],
+                  guests: guests.toString(),
+                });
+                router.push(`/${locale}/listings/${listingId}/payment?${params.toString()}`);
+              }}
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            >
+              💳 Kartla Öde ve Rezervasyon Yap
+            </button>
+          </div>
           
           <button
             type="button"
