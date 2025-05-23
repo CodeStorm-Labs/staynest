@@ -40,47 +40,47 @@ async function getListingImages(listingId: string) {
 function getAmenitiesForPropertyType(propertyType: string) {
   const baseAmenities = [
     { name: 'Wi-Fi', icon: 'wifi', available: true },
-    { name: 'Air Conditioning', icon: 'ac', available: true },
+    { name: 'Klima', icon: 'ac', available: true },
     { name: 'TV', icon: 'tv', available: true },
-    { name: 'Kitchen', icon: 'kitchen', available: true },
-    { name: 'Washer', icon: 'washer', available: true },
-    { name: 'Free Parking', icon: 'parking', available: true },
+    { name: 'Mutfak', icon: 'kitchen', available: true },
+    { name: 'Çamaşır Makinesi', icon: 'washer', available: true },
+    { name: 'Ücretsiz Otopark', icon: 'parking', available: true },
   ];
 
   if (propertyType === 'HOUSE') {
     return [
       ...baseAmenities,
-      { name: 'Swimming Pool', icon: 'pool', available: true },
-      { name: 'Garden', icon: 'garden', available: true },
-      { name: 'BBQ', icon: 'bbq', available: true },
-      { name: 'Pets Allowed', icon: 'pets', available: false },
+      { name: 'Yüzme Havuzu', icon: 'pool', available: true },
+      { name: 'Bahçe', icon: 'garden', available: true },
+      { name: 'Mangal', icon: 'bbq', available: true },
+      { name: 'Evcil Hayvan İzni', icon: 'pets', available: false },
     ];
   } else if (propertyType === 'UNIQUE') {
     return [
       ...baseAmenities,
-      { name: 'Mountain View', icon: 'view', available: true },
-      { name: 'Fireplace', icon: 'fireplace', available: true },
-      { name: 'Terrace', icon: 'terrace', available: true },
-      { name: 'Heating', icon: 'heating', available: true },
+      { name: 'Dağ Manzarası', icon: 'view', available: true },
+      { name: 'Şömine', icon: 'fireplace', available: true },
+      { name: 'Teras', icon: 'terrace', available: true },
+      { name: 'Isıtma', icon: 'heating', available: true },
     ];
   } else if (propertyType === 'HOTEL') {
     return [
-      ...baseAmenities.filter(a => a.name !== 'Kitchen' && a.name !== 'Washer'), // Remove kitchen and washer
-      { name: 'Room Service', icon: 'room-service', available: true },
-      { name: 'Restaurant', icon: 'restaurant', available: true },
-      { name: 'Fitness Center', icon: 'gym', available: true },
+      ...baseAmenities.filter(a => a.name !== 'Mutfak' && a.name !== 'Çamaşır Makinesi'), // Remove kitchen and washer
+      { name: 'Oda Servisi', icon: 'room-service', available: true },
+      { name: 'Restoran', icon: 'restaurant', available: true },
+      { name: 'Fitness Merkezi', icon: 'gym', available: true },
       { name: 'Spa', icon: 'spa', available: true },
-      { name: 'Concierge', icon: 'concierge', available: true },
-      { name: 'Daily Housekeeping', icon: 'cleaning', available: true },
+      { name: 'Kapıcı Hizmeti', icon: 'concierge', available: true },
+      { name: 'Günlük Temizlik', icon: 'cleaning', available: true },
     ];
   } else {
     // APARTMENT
     return [
       ...baseAmenities,
-      { name: 'Elevator', icon: 'elevator', available: true },
-      { name: 'Gym', icon: 'gym', available: true },
-      { name: 'Security', icon: 'security', available: true },
-      { name: 'Balcony', icon: 'balcony', available: false },
+      { name: 'Asansör', icon: 'elevator', available: true },
+      { name: 'Spor Salonu', icon: 'gym', available: true },
+      { name: 'Güvenlik', icon: 'security', available: true },
+      { name: 'Balkon', icon: 'balcony', available: false },
     ];
   }
 }

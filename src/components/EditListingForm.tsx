@@ -61,11 +61,11 @@ export default function EditListingForm({ initialData }: Props) {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Edit Listing</h2>
+      <h2 className="text-2xl font-bold mb-4">İlanı Düzenle</h2>
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow-md">
         {error && <div className="text-red-600">{error}</div>}
         <div>
-          <label className="block font-medium">Title</label>
+          <label className="block font-medium">Başlık</label>
           <input
             name="title"
             value={form.title}
@@ -75,7 +75,7 @@ export default function EditListingForm({ initialData }: Props) {
           />
         </div>
         <div>
-          <label className="block font-medium">Description</label>
+          <label className="block font-medium">Açıklama</label>
           <textarea
             name="description"
             value={form.description}
@@ -86,7 +86,7 @@ export default function EditListingForm({ initialData }: Props) {
           />
         </div>
         <div>
-          <label className="block font-medium">Address</label>
+          <label className="block font-medium">Adres</label>
           <input
             name="address"
             value={form.address}
@@ -97,7 +97,7 @@ export default function EditListingForm({ initialData }: Props) {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block font-medium">Latitude</label>
+            <label className="block font-medium">Enlem</label>
             <input
               name="latitude"
               value={form.latitude}
@@ -109,7 +109,7 @@ export default function EditListingForm({ initialData }: Props) {
             />
           </div>
           <div>
-            <label className="block font-medium">Longitude</label>
+            <label className="block font-medium">Boylam</label>
             <input
               name="longitude"
               value={form.longitude}
@@ -122,7 +122,7 @@ export default function EditListingForm({ initialData }: Props) {
           </div>
         </div>
         <div>
-          <label className="block font-medium">Price (per night)</label>
+          <label className="block font-medium">Fiyat (gecelik)</label>
           <input
             name="price"
             value={form.price}
@@ -133,17 +133,17 @@ export default function EditListingForm({ initialData }: Props) {
           />
         </div>
         <div>
-          <label className="block font-medium">Property Type</label>
+          <label className="block font-medium">Mülk Türü</label>
           <select
             name="propertyType"
             value={form.propertyType}
             onChange={handleChange}
             className="w-full border px-3 py-2 rounded"
           >
-            <option value="APARTMENT">Apartment</option>
-            <option value="HOUSE">House</option>
-            <option value="UNIQUE">Unique</option>
-            <option value="HOTEL">Hotel</option>
+            <option value="APARTMENT">Daire</option>
+            <option value="HOUSE">Ev</option>
+            <option value="UNIQUE">Özel</option>
+            <option value="HOTEL">Otel</option>
           </select>
         </div>
         <button
@@ -151,7 +151,7 @@ export default function EditListingForm({ initialData }: Props) {
           disabled={isSubmitting}
           className="w-full bg-blue-600 text-white px-4 py-2 rounded"
         >
-          {isSubmitting ? 'Updating...' : 'Update Listing'}
+          {isSubmitting ? 'Güncelleniyor...' : 'İlanı Güncelle'}
         </button>
       </form>
     </div>
