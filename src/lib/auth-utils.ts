@@ -63,7 +63,7 @@ export async function isAdmin() {
     if (!session) return false;
     
     // First check for admin cookie
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const adminCookie = cookieStore.get('admin_session');
     if (adminCookie?.value === 'true') {
       const adminUser = await db.query.user.findFirst({
@@ -97,13 +97,13 @@ export async function requireAdmin(locale: string = 'tr') {
   return session;
 }
 
-// Require host role, redirect if not host or admin
+// Require host role, redirect if not host or admin (for now, only admin can be host)
 export async function requireHost(locale: string = 'tr') {
   const session = await getAuthSession();
   if (!session) redirect(`/${locale}/login`);
   
   const userRecord = await getUserRecord(session.user.id);
-  if (!userRecord || (userRecord.role !== UserRole.HOST && userRecord.role !== UserRole.ADMIN)) {
+  if (!userRecord || userRecord.role !== 'admin') {
     redirect(`/${locale}/dashboard`);
   }
   
@@ -131,7 +131,7 @@ export async function getAuthSession(req?: NextRequest) {
     } else {
       // When no request is provided (server components)
       // try to get the cookie from headers
-      const headersList = headers();
+      const headersList = await headers();
       const cookieHeader = headersList.get('cookie') || '';
       
       if (cookieHeader.includes('admin_session=true')) {
@@ -152,7 +152,7 @@ export async function getAuthSession(req?: NextRequest) {
     }
     
     // Fallback to Better Auth session
-    const headersList = headers();
+    const headersList = await headers();
     return await auth.api.getSession({ headers: headersList });
   } catch (error) {
     console.error("Error getting Better Auth session:", error);
