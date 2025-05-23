@@ -62,8 +62,8 @@ export default function AdminGuard({ children }: AdminGuardProps) {
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <h1 className="text-2xl font-bold">Yükleniyor...</h1>
-          <p className="text-gray-900">Yönetici erişimi doğrulanıyor</p>
+          <h1 className="text-2xl font-bold text-black">Yükleniyor...</h1>
+          <p className="text-black">Yönetici erişimi doğrulanıyor</p>
         </div>
       </div>
     );
