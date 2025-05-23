@@ -16,7 +16,9 @@ const fallbackImage = 'https://images.unsplash.com/photo-1630583282918-07c6a122d
 
 export default function HomeHero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [nextImageIndex, setNextImageIndex] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -37,12 +39,22 @@ export default function HomeHero() {
     }
   }, []);
 
-  // Image rotation effect
+  // Image rotation effect with smoother transitions
   useEffect(() => {
     setIsLoaded(true);
     
     timerRef.current = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+      setIsTransitioning(true);
+      
+      // Preload next image
+      const nextIndex = (currentImageIndex + 1) % backgroundImages.length;
+      setNextImageIndex(nextIndex);
+      
+      // Small delay to ensure smooth transition
+      setTimeout(() => {
+        setCurrentImageIndex(nextIndex);
+        setIsTransitioning(false);
+      }, 100);
     }, 8000);
     
     return () => {
@@ -50,23 +62,30 @@ export default function HomeHero() {
         clearInterval(timerRef.current);
       }
     };
-  }, []);
-  
-  // Fixed first image with server-side rendering support
-  const firstImage = backgroundImages[0];
+  }, [currentImageIndex]);
   
   return (
-    <div className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+    <div className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-gray-900">
+      {/* Base background to prevent any flashing */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-blue-800" 
+        style={{ zIndex: 1 }}
+      />
+      
       {/* Fixed background (visible immediately) */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" style={{ zIndex: 2 }}>
         <Image
-          src={firstImage}
-          alt="StayNest hero background"
+          src={imageErrors[0] ? fallbackImage : backgroundImages[0]}
+          alt=""
           fill
           priority={true}
           className="object-cover object-center"
           sizes="100vw"
           quality={90}
+          loading="eager"
+          onError={() => {
+            setImageErrors(prev => ({ ...prev, [0]: true }));
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
       </div>
@@ -74,21 +93,26 @@ export default function HomeHero() {
       {/* Rotating backgrounds (visible after JS loads) */}
       {isLoaded && backgroundImages.map((image, index) => (
         <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+          key={`bg-${index}`}
+          className={`absolute inset-0 transition-opacity duration-2000 ease-in-out ${
+            index === currentImageIndex && !isTransitioning ? 'opacity-100' : 'opacity-0'
           }`}
+          style={{ zIndex: 3 }}
         >
           <Image
             src={imageErrors[index] ? fallbackImage : image}
-            alt={`StayNest hero background ${index + 1}`}
+            alt=""
             fill
             priority={index === 0}
             className="object-cover object-center"
             sizes="100vw"
             quality={90}
+            loading={index === 0 ? "eager" : "lazy"}
             onError={() => {
               setImageErrors(prev => ({ ...prev, [index]: true }));
+            }}
+            onLoad={() => {
+              setLoadedImages(prev => ({ ...prev, [index]: true }));
             }}
           />
           {/* Gradient overlay */}
@@ -96,11 +120,8 @@ export default function HomeHero() {
         </div>
       ))}
       
-      {/* Placeholder background in case all images fail */}
-      <div className="absolute inset-0 bg-blue-800" style={{ zIndex: -1 }} />
-      
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 flex flex-col items-center">
+      <div className="relative container mx-auto px-6 flex flex-col items-center" style={{ zIndex: 10 }}>
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : -20 }}

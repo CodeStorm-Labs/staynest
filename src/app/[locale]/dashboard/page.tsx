@@ -245,7 +245,7 @@ export default function Dashboard() {
               {user?.name?.charAt(0) || 'U'}
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-black">{user?.email === 'admin@example.com' ? 'Admin User' : user?.name || 'Kullanıcı'}</h2>
+              <h2 className="text-2xl font-bold text-black">{user?.email === 'admin@example.com' ? 'Admin Kullanıcısı' : user?.name || 'Kullanıcı'}</h2>
               <p className="text-black">{user?.email}</p>
             </div>
           </div>
